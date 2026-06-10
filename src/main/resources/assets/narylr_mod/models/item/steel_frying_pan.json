@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "narylr_mod:item/steel_frying_pan"
+  }
+}

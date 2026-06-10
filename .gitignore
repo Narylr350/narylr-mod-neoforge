@@ -22,5 +22,14 @@ eclipse
 run
 runs
 run-data
-
 repo
+
+# generated
+src/generated
+
+# local runtime mods
+libs/
+
+# OS files
+.DS_Store
+Thumbs.db

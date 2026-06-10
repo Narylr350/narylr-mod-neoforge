@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "narylr_mod:steel_pickaxe",
+    "narylr_mod:steel_axe",
+    "narylr_mod:steel_shovel",
+    "narylr_mod:steel_hoe",
+    "narylr_mod:steel_nether_pickaxe"
+  ]
+}

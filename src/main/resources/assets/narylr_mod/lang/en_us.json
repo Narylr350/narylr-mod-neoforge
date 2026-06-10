@@ -1,0 +1,50 @@
+{
+  "itemGroup.narylr_mod.steel_craft": "Steel Craft",
+
+  "item.narylr_mod.steel_ingot": "Steel Ingot",
+  "item.narylr_mod.steel_nugget": "Steel Nugget",
+  "item.narylr_mod.steel_block": "Steel Block",
+  "item.narylr_mod.raw_steel": "Raw Steel Billet",
+  "item.narylr_mod.steel_furnace": "Steel Furnace",
+  "item.narylr_mod.steel_sword": "Steel Sword",
+  "item.narylr_mod.steel_pickaxe": "Steel Pickaxe",
+  "item.narylr_mod.steel_axe": "Steel Axe",
+  "item.narylr_mod.steel_shovel": "Steel Shovel",
+  "item.narylr_mod.steel_hoe": "Steel Hoe",
+  "item.narylr_mod.steel_helmet": "Steel Helmet",
+  "item.narylr_mod.steel_chestplate": "Steel Chestplate",
+  "item.narylr_mod.steel_leggings": "Steel Leggings",
+  "item.narylr_mod.steel_boots": "Steel Boots",
+  "item.narylr_mod.steel_frying_pan": "Steel Frying Pan",
+  "item.narylr_mod.steel_morning_star": "Steel Morning Star",
+  "item.narylr_mod.steel_nether_sword": "Steel Nether Sword",
+  "item.narylr_mod.steel_nether_pickaxe": "Steel Nether Pickaxe",
+  "item.narylr_mod.steel_nether_helmet": "Steel Nether Helmet",
+  "item.narylr_mod.steel_nether_chestplate": "Steel Nether Chestplate",
+  "item.narylr_mod.steel_nether_leggings": "Steel Nether Leggings",
+  "item.narylr_mod.steel_nether_boots": "Steel Nether Boots",
+  "item.narylr_mod.steel_nether_ignot": "Steel Nether Ingot",
+
+  "tooltip.narylr_mod.heavy_item.heavy": "Heavy: -%s%% movement speed when held in main hand",
+  "tooltip.narylr_mod.heavy_item.heavy_reduced": "Heavy: -%s%% movement speed after Lightweight (base %s%%)",
+  "tooltip.narylr_mod.heavy_item.lightweight_full": "Heavy: fully negated by Lightweight (base %s%%)",
+  "tooltip.narylr_mod.steel_armor.heavy": "Heavy: %s%% armor weight when worn",
+  "tooltip.narylr_mod.steel_tool.durable": "Durable: higher durability than diamond tools",
+  "tooltip.narylr_mod.steel_armor.durable": "Durable: higher durability than diamond armors",
+  "tooltip.narylr_mod.steel_material.hard": "Hard: increases attack damage when held in main hand",
+  "tooltip.narylr_mod.steel_armor.rule": "Armor weight uses the higher value with main-hand weight",
+
+  "block.narylr_mod.steel_block": "Steel Block",
+  "block.narylr_mod.steel_furnace": "Steel Furnace",
+
+  "container.narylr_mod.steel_furnace": "Steel Furnace",
+
+  "advancements.narylr_mod.steel_age.title": "Steel Age",
+  "advancements.narylr_mod.steel_age.description": "Obtain your first steel ingot",
+
+  "enchantment.narylr_mod.lightweight": "Lightweight",
+
+  "jei.narylr_mod.category.steel_furnace": "Steelmaking",
+
+  "config.jade.plugin_narylr_mod.steel_furnace": "Steelmaking"
+}

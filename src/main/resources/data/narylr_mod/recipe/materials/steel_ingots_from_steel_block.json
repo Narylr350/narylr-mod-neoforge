@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "narylr_mod:steel_block"
+    }
+  ],
+  "result": {
+    "id": "narylr_mod:steel_ingot",
+    "count": 9
+  }
+}

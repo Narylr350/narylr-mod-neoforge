@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "narylr_mod:steel_nugget"
+    }
+  },
+  "result": {
+    "id": "narylr_mod:steel_ingot",
+    "count": 1
+  }
+}

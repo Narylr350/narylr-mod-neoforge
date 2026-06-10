@@ -1,0 +1,13 @@
+{
+  "type": "narylr_mod:steel_furnacing",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "coal_count": 4,
+  "result": {
+    "id": "narylr_mod:steel_ingot",
+    "count": 1
+  },
+  "experience": 0.7,
+  "cookingtime": 160
+}

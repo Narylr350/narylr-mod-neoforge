@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "narylr_mod:raw_steel"
+  },
+  "result": {
+    "id": "narylr_mod:steel_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 400
+}

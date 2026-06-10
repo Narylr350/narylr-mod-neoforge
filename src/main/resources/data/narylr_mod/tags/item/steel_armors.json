@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "narylr_mod:steel_helmet",
+    "narylr_mod:steel_chestplate",
+    "narylr_mod:steel_leggings",
+    "narylr_mod:steel_boots",
+    "narylr_mod:steel_nether_helmet",
+    "narylr_mod:steel_nether_chestplate",
+    "narylr_mod:steel_nether_leggings",
+    "narylr_mod:steel_nether_boots"
+  ]
+}
