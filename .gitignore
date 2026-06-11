@@ -32,6 +32,7 @@ runs/client/resources
 runs/client/saves
 runs/client/crash-reports
 runs/client/command_history.txt
+runs/client/usercache.json
 runs/client/usernamecache.json
 runs/client/options.txt
 runs/data
