@@ -20,14 +20,28 @@ build
 # other
 eclipse
 run
-runs
 run-data
 repo
+
+# runs 目录中忽略除了 mods 以外的内容
+runs/client/config
+runs/client/downloads
+runs/client/logs
+runs/client/resourcepacks
+runs/client/resources
+runs/client/saves
+runs/client/crash-reports
+runs/client/command_history.txt
+runs/client/usernamecache.json
+runs/client/options.txt
+runs/data
+runs/gameTestServer
+runs/junit
 
 # generated
 src/generated
 
-# local runtime mods
+# local libs
 libs/
 
 # OS files
