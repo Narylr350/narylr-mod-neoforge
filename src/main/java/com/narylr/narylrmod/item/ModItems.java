@@ -104,14 +104,29 @@ public class ModItems {
 
     // 下界合金钢工具
     public static final DeferredItem<Item> STEEL_NETHER_SWORD = ITEMS.register("steel_nether_sword",
-            () -> new SwordItem(ModToolTiers.STEEL, new Item.Properties().attributes(
+            () -> new SwordItem(ModToolTiers.STEEL_NETHER, new Item.Properties().attributes(
                     HeavyItemAttributes.addSteelIngotToolModifier(
-                            SwordItem.createAttributes(ModToolTiers.STEEL, 4, -2.6F), "steel_nether_sword"))));
+                            SwordItem.createAttributes(ModToolTiers.STEEL_NETHER, 4, -2.6F), "steel_nether_sword"))));
 
     public static final DeferredItem<Item> STEEL_NETHER_PICKAXE = ITEMS.register("steel_nether_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.STEEL, new Item.Properties().attributes(
+            () -> new PickaxeItem(ModToolTiers.STEEL_NETHER, new Item.Properties().attributes(
                     HeavyItemAttributes.addSteelIngotToolModifier(
-                            PickaxeItem.createAttributes(ModToolTiers.STEEL, 1.0F, -3.0F), "steel_nether_pickaxe"))));
+                            PickaxeItem.createAttributes(ModToolTiers.STEEL_NETHER, 1.0F, -3.0F), "steel_nether_pickaxe"))));
+
+    public static final DeferredItem<Item> STEEL_NETHER_SHOVEL = ITEMS.register("steel_nether_shovel",
+            () -> new ShovelItem(ModToolTiers.STEEL_NETHER, new Item.Properties().attributes(
+                    HeavyItemAttributes.addSteelIngotToolModifier(
+                            ShovelItem.createAttributes(ModToolTiers.STEEL_NETHER, 1.5F, -3.0F), "steel_nether_shovel"))));
+
+    public static final DeferredItem<Item> STEEL_NETHER_AXE = ITEMS.register("steel_nether_axe",
+            () -> new AxeItem(ModToolTiers.STEEL_NETHER, new Item.Properties().attributes(
+                    HeavyItemAttributes.addSteelIngotToolModifier(
+                            AxeItem.createAttributes(ModToolTiers.STEEL_NETHER, 7.0F, -3.0F), "steel_nether_axe"))));
+
+    public static final DeferredItem<Item> STEEL_NETHER_HOE = ITEMS.register("steel_nether_hoe",
+            () -> new HoeItem(ModToolTiers.STEEL_NETHER, new Item.Properties().attributes(
+                    HeavyItemAttributes.addSteelIngotToolModifier(
+                            HoeItem.createAttributes(ModToolTiers.STEEL_NETHER, -4.0F, 0.0F), "steel_nether_hoe"))));
 
     // 特殊武器
     public static final DeferredItem<Item> STEEL_FRYING_PAN = ITEMS.register("steel_frying_pan",

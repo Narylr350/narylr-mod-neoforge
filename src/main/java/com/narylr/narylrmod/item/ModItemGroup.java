@@ -46,6 +46,9 @@ public class ModItemGroup {
                         // 下界合金钢工具
                         output.accept(ModItems.STEEL_NETHER_SWORD.get());
                         output.accept(ModItems.STEEL_NETHER_PICKAXE.get());
+                        output.accept(ModItems.STEEL_NETHER_AXE.get());
+                        output.accept(ModItems.STEEL_NETHER_HOE.get());
+                        output.accept(ModItems.STEEL_NETHER_SHOVEL.get());
                         // 特殊武器
                         output.accept(ModItems.STEEL_FRYING_PAN.get());
                         output.accept(ModItems.STEEL_MORNING_STAR.get());

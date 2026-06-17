@@ -47,4 +47,38 @@ public class ModToolTiers {
             return Ingredient.of(ModItems.STEEL_INGOT.get());
         }
     };
+
+    // 下界合金钢工具材料，大部分继承钢工具，修复材料改为下界合金钢锭
+    public static final Tier STEEL_NETHER = new Tier() {
+        @Override
+        public TagKey<Block> getIncorrectBlocksForDrops() {
+            return BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
+        }
+
+        @Override
+        public int getUses() {
+            return 1800;
+        }
+
+        @Override
+        public float getSpeed() {
+            return 8.5F;
+        }
+
+        @Override
+        public float getAttackDamageBonus() {
+            return 3.0F;
+        }
+
+        @Override
+        public int getEnchantmentValue() {
+            return 8;
+        }
+
+        // 修复材料：下界合金钢锭
+        @Override
+        public Ingredient getRepairIngredient() {
+            return Ingredient.of(ModItems.STEEL_NETHER_INGOT.get());
+        }
+    };
 }
