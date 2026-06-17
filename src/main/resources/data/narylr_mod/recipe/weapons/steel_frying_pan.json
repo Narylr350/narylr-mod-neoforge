@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " SS",
+    " SS",
+    " T "
+  ],
+  "key": {
+    "S": { "item": "narylr_mod:steel_ingot" },
+    "T": { "item": "minecraft:stick" }
+  },
+  "result": { "id": "narylr_mod:steel_frying_pan", "count": 1 }
+}

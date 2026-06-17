@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "S",
+    "T"
+  ],
+  "key": {
+    "S": { "item": "narylr_mod:steel_block" },
+    "T": { "item": "minecraft:stick" }
+  },
+  "result": { "id": "narylr_mod:steel_morning_star", "count": 1 }
+}
