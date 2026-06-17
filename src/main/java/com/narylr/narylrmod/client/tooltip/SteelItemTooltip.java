@@ -12,69 +12,67 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
-// 钢制物品提示文本处理类
+// 钢制物品提示文本处理
 public class SteelItemTooltip {
 
-    // 物品提示文本事件处理
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         ItemStack itemStack = event.getItemStack();
-        double baseHeavyPenalty = HeavyItemHelper.getBaseHeavyPenalty(itemStack);
 
-        if (baseHeavyPenalty > 0.0D) {
-            int lightweightLevel = getLightweightLevel(itemStack);
-            double finalHeavyPenalty = applyLightweightReduction(baseHeavyPenalty, lightweightLevel);
+        // 沉重提示
+        double basePenalty = HeavyItemHelper.getBaseHeavyPenalty(itemStack);
+        if (basePenalty > 0.0D) {
+            int level = getLightweightLevel(itemStack);
+            double finalPenalty = applyLightweightReduction(basePenalty, level);
+            int basePct = toPercent(basePenalty);
+            int finalPct = toPercent(finalPenalty);
 
-            int basePercent = toPercent(baseHeavyPenalty);
-            int finalPercent = toPercent(finalHeavyPenalty);
-
-            if (lightweightLevel >= 3 || finalHeavyPenalty <= 0.0D) {
-                event.getToolTip().add(Component.translatable("tooltip.narylr_mod.heavy_item.lightweight_full", basePercent)
+            if (level >= 3 || finalPenalty <= 0.0D) {
+                event.getToolTip().add(Component.translatable("tooltip.narylr_mod.heavy_item.lightweight_full", basePct)
                         .withStyle(ChatFormatting.AQUA));
-            } else if (lightweightLevel > 0) {
-                event.getToolTip().add(Component.translatable("tooltip.narylr_mod.heavy_item.heavy_reduced", finalPercent, basePercent)
+            } else if (level > 0) {
+                event.getToolTip().add(Component.translatable("tooltip.narylr_mod.heavy_item.heavy_reduced", finalPct, basePct)
                         .withStyle(ChatFormatting.AQUA));
             } else {
-                event.getToolTip().add(Component.translatable("tooltip.narylr_mod.heavy_item.heavy", basePercent)
+                event.getToolTip().add(Component.translatable("tooltip.narylr_mod.heavy_item.heavy", basePct)
                         .withStyle(ChatFormatting.RED));
             }
         }
 
+        // 钢工具提示
         if (itemStack.is(ModTags.STEEL_TOOLS)) {
             event.getToolTip().add(Component.translatable("tooltip.narylr_mod.steel_tool.durable")
                     .withStyle(ChatFormatting.GREEN));
         }
 
-        if (itemStack.is(ModItems.STEEL_INGOT.get())
-                || itemStack.is(ModItems.STEEL_BLOCK_ITEM.get())) {
+        // 钢材料提示
+        if (itemStack.is(ModItems.STEEL_INGOT.get()) || itemStack.is(ModItems.STEEL_BLOCK_ITEM.get())) {
             event.getToolTip().add(Component.translatable("tooltip.narylr_mod.steel_material.hard")
                     .withStyle(ChatFormatting.GREEN));
         }
 
+        // 普通钢甲沉重提示
         if (itemStack.is(ModItems.STEEL_HELMET.get())) {
             event.getToolTip().add(Component.translatable("tooltip.narylr_mod.steel_armor.heavy", 2)
                     .withStyle(ChatFormatting.RED));
         }
-
         if (itemStack.is(ModItems.STEEL_CHESTPLATE.get())) {
             event.getToolTip().add(Component.translatable("tooltip.narylr_mod.steel_armor.heavy", 5)
                     .withStyle(ChatFormatting.RED));
         }
-
         if (itemStack.is(ModItems.STEEL_LEGGINGS.get())) {
             event.getToolTip().add(Component.translatable("tooltip.narylr_mod.steel_armor.heavy", 5)
                     .withStyle(ChatFormatting.RED));
         }
-
         if (itemStack.is(ModItems.STEEL_BOOTS.get())) {
             event.getToolTip().add(Component.translatable("tooltip.narylr_mod.steel_armor.heavy", 3)
                     .withStyle(ChatFormatting.RED));
         }
 
+        // 钢甲通用提示（仅普通钢甲在标签内）
         if (itemStack.is(ModTags.STEEL_ARMORS)) {
             event.getToolTip().add(Component.translatable("tooltip.narylr_mod.steel_armor.durable")
                     .withStyle(ChatFormatting.GREEN));
@@ -83,18 +81,13 @@ public class SteelItemTooltip {
         }
     }
 
-    private SteelItemTooltip() {
-    }
-
-    private static double applyLightweightReduction(double penalty, int lightweightLevel) {
-        if (penalty <= 0.0D || lightweightLevel <= 0) {
+    // 轻盈附魔抵消计算
+    private static double applyLightweightReduction(double penalty, int level) {
+        if (penalty <= 0.0D || level <= 0) {
             return penalty;
         }
-
-        int clampedLevel = Math.min(lightweightLevel, 3);
-        double reductionRate = clampedLevel / 3.0D;
-
-        return penalty * (1.0D - reductionRate);
+        int clamped = Math.min(level, 3);
+        return penalty * (1.0D - clamped / 3.0D);
     }
 
     // 获取物品上的轻盈附魔等级
@@ -102,17 +95,9 @@ public class SteelItemTooltip {
         if (stack.isEmpty() || Minecraft.getInstance().level == null) {
             return 0;
         }
-
-        Registry<Enchantment> enchantmentRegistry = Minecraft.getInstance()
-                .level
-                .registryAccess()
+        Registry<Enchantment> registry = Minecraft.getInstance().level.registryAccess()
                 .registryOrThrow(Registries.ENCHANTMENT);
-
-        Holder<Enchantment> lightweight = enchantmentRegistry.getHolderOrThrow(
-                ModEnchantments.LIGHTWEIGHT
-        );
-
-        // 使用新的 API 获取附魔等级
+        Holder<Enchantment> lightweight = registry.getHolderOrThrow(ModEnchantments.LIGHTWEIGHT);
         return stack.getEnchantmentLevel(lightweight);
     }
 

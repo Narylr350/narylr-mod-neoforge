@@ -11,20 +11,18 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
-// 客户端事件处理类
+// 客户端事件处理，只在客户端加载
 @EventBusSubscriber(modid = NarylrMod.MOD_ID, value = Dist.CLIENT)
 public class NarylrModClient {
 
-    // 客户端初始化事件
+    // 客户端初始化，注册画布到游戏总线
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         NarylrMod.LOGGER.info("Client setup");
-
-        // 注册物品提示文本事件监听器到游戏总线
         NeoForge.EVENT_BUS.register(SteelItemTooltip.class);
     }
 
-    // 注册菜单屏幕事件
+    // 注册菜单屏幕
     @SubscribeEvent
     public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
         event.register(ModMenus.STEEL_FURNACE_MENU.get(), SteelFurnaceScreen::new);
