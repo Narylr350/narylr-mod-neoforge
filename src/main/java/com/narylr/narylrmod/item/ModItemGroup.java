@@ -52,6 +52,8 @@ public class ModItemGroup {
                         // 特殊武器
                         output.accept(ModItems.STEEL_FRYING_PAN.get());
                         output.accept(ModItems.STEEL_MORNING_STAR.get());
+                        // 下界合金钢锭
+                        output.accept(ModItems.STEEL_NETHER_INGOT.get());
                         // 下界合金钢盔甲
                         output.accept(ModItems.STEEL_NETHER_HELMET.get());
                         output.accept(ModItems.STEEL_NETHER_CHESTPLATE.get());

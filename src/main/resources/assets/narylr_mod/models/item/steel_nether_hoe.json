@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "narylr-mod:item/steel_nether_hoe"
+    "layer0": "narylr_mod:item/steel_nether_hoe"
   }
 }

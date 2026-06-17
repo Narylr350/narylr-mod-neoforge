@@ -37,7 +37,10 @@ public class HeavyItemHelper {
                 || item == ModItems.STEEL_SHOVEL.get()
                 || item == ModItems.STEEL_HOE.get()
                 || item == ModItems.STEEL_NETHER_SWORD.get()
-                || item == ModItems.STEEL_NETHER_PICKAXE.get();
+                || item == ModItems.STEEL_NETHER_PICKAXE.get()
+                || item == ModItems.STEEL_NETHER_AXE.get()
+                || item == ModItems.STEEL_NETHER_SHOVEL.get()
+                || item == ModItems.STEEL_NETHER_HOE.get();
     }
 
     private HeavyItemHelper() {

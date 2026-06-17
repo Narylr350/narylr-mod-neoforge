@@ -149,17 +149,29 @@ public class HeavySystemEvents {
             return;
         }
 
-        // 先移除旧 modifier，避免重复添加
-        movementSpeed.removeModifier(HEAVY_MOVEMENT_SPEED_ID);
+        // 获取当前 modifier，避免无变化时仍然删除再添加
+        AttributeModifier existing = movementSpeed.getModifier(HEAVY_MOVEMENT_SPEED_ID);
 
-        // 没有沉重效果就不添加新 modifier
+        // 没有沉重效果
         if (penalty <= 0.0D) {
+            if (existing != null) {
+                movementSpeed.removeModifier(HEAVY_MOVEMENT_SPEED_ID);
+            }
             return;
         }
 
+        // 检查是否需要更新（数值有变化）
+        double expected = -penalty;
+        if (existing != null && existing.amount() == expected
+                && existing.operation() == AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) {
+            return; // 无需更新
+        }
+
+        movementSpeed.removeModifier(HEAVY_MOVEMENT_SPEED_ID);
+
         AttributeModifier modifier = new AttributeModifier(
                 HEAVY_MOVEMENT_SPEED_ID,
-                -penalty,
+                expected,
                 AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
         );
 

@@ -140,7 +140,7 @@ public class ModItems {
                             SwordItem.createAttributes(ModToolTiers.STEEL, 8, -3.4F), "steel_morning_star"))));
 
     // 下界合金钢锭
-    public static final DeferredItem<Item> STEEL_NETHER_INGOT = ITEMS.register("steel_nether_ignot",
+    public static final DeferredItem<Item> STEEL_NETHER_INGOT = ITEMS.register("steel_nether_ingot",
             () -> new Item(new Item.Properties()));
 
     // 注册所有物品到模组总线

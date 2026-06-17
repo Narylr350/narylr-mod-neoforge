@@ -90,8 +90,6 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
         if (state.getValue(SteelFurnaceBlock.LIT) != working) {
             level.setBlock(pos, state.setValue(SteelFurnaceBlock.LIT, working), 3);
         }
-
-        setChanged(level, pos, state);
     }
 
     private boolean tickWork() {
@@ -190,9 +188,10 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
             return false;
         }
 
+        // 重新确认输入槽材料仍然有效，防止空手炼钢
+        // 先从缓存取，缓存失效则按输入重新查找
         SteelFurnaceRecipe recipe = currentSteelRecipe;
-
-        if (recipe == null) {
+        if (recipe == null || !recipe.ingredient().test(items.get(0))) {
             recipe = findSteelRecipeByInputOnly();
             currentSteelRecipe = recipe;
         }
@@ -208,7 +207,10 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
         progress++;
 
         if (progress >= maxProgress) {
-            finishSteelRecipe();
+            // 完成前最后确认一次输入材料仍在
+            if (recipe.ingredient().test(items.get(0))) {
+                finishSteelRecipe();
+            }
             stopWorking();
             return tryStartSteelRecipe();
         }
@@ -460,6 +462,7 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
         tag.putInt("MaxProgress", maxProgress);
         tag.putInt("BurnTime", burnTime);
         tag.putInt("MaxBurnTime", maxBurnTime);
+        tag.putInt("Mode", mode);
         tag.putFloat("ExperienceStored", experienceStored);
     }
 
