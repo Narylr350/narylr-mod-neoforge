@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
@@ -188,15 +189,25 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
             return false;
         }
 
-        // 重新确认输入槽材料仍然有效，防止空手炼钢
-        // 先从缓存取，缓存失效则按输入重新查找
         SteelFurnaceRecipe recipe = currentSteelRecipe;
-        if (recipe == null || !recipe.ingredient().test(items.get(0))) {
+
+        /*
+         * 世界重新加载后，currentSteelRecipe 不会直接保存。
+         * 只有缓存为空时，才允许根据当前输入恢复配方。
+         */
+        if (recipe == null) {
             recipe = findSteelRecipeByInputOnly();
             currentSteelRecipe = recipe;
         }
 
-        if (recipe == null || !canOutput(recipe.result())) {
+        /*
+         * 已经开始加工后，输入必须继续匹配原配方。
+         * 输入被拿走或换成另一种材料时，直接终止，
+         * 不允许自动切换成另一张配方。
+         */
+        if (recipe == null
+                || !recipe.ingredient().test(items.get(0))
+                || !canOutput(recipe.result())) {
             stopWorking();
             return false;
         }
@@ -207,11 +218,10 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
         progress++;
 
         if (progress >= maxProgress) {
-            // 完成前最后确认一次输入材料仍在
-            if (recipe.ingredient().test(items.get(0))) {
-                finishSteelRecipe();
-            }
+            finishSteelRecipe();
             stopWorking();
+
+            // 如果还有足够材料和碳源，自动开始下一轮
             return tryStartSteelRecipe();
         }
 
@@ -220,7 +230,8 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
     }
 
     private void finishSteelRecipe() {
-        if (currentSteelRecipe == null) {
+        if (currentSteelRecipe == null
+                || !currentSteelRecipe.ingredient().test(items.get(0))) {
             return;
         }
 
@@ -345,7 +356,8 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
             return false;
         }
 
-        int fuelTime = AbstractFurnaceBlockEntity.getFuel().getOrDefault(fuel.getItem(), 0);
+        int fuelTime = AbstractFurnaceBlockEntity.getFuel()
+                .getOrDefault(fuel.getItem(), 0);
 
         if (fuelTime <= 0) {
             return false;
@@ -354,7 +366,32 @@ public class SteelFurnaceBlockEntity extends BlockEntity implements Container {
         burnTime = fuelTime;
         maxBurnTime = fuelTime;
 
+        // 消耗前先取得容器返回物，例如熔岩桶使用后留下空桶
+        ItemStack remainder = fuel.getCraftingRemainingItem();
+
         fuel.shrink(1);
+
+        if (!remainder.isEmpty()) {
+            // 熔岩桶等不可堆叠燃料，燃料槽空了以后直接放回容器
+            if (fuel.isEmpty()) {
+                items.set(1, remainder);
+            } else if (level != null) {
+                /*
+                 * 极少数可堆叠且有容器返回物的燃料，
+                 * 燃料槽还有剩余物品时无法同时塞入容器，
+                 * 因此将容器掉落在机器附近。
+                 */
+                Containers.dropItemStack(
+                        level,
+                        worldPosition.getX() + 0.5D,
+                        worldPosition.getY() + 1.0D,
+                        worldPosition.getZ() + 0.5D,
+                        remainder
+                );
+            }
+        }
+
+        setChanged();
         return true;
     }
 

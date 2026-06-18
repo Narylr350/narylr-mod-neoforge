@@ -3,6 +3,7 @@ package com.narylr.narylrmod.client.compat.jei;
 import com.narylr.narylrmod.NarylrMod;
 import com.narylr.narylrmod.block.ModBlocks;
 import com.narylr.narylrmod.recipe.SteelFurnaceRecipe;
+import com.narylr.narylrmod.tag.ModTags;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
@@ -15,8 +16,11 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.List;
 
 // 钢熔炉 JEI 配方分类
 public class SteelFurnaceRecipeCategory implements IRecipeCategory<SteelFurnaceRecipe> {
@@ -57,15 +61,30 @@ public class SteelFurnaceRecipeCategory implements IRecipeCategory<SteelFurnaceR
 
     // 设置钢熔炉 JEI 配方的输入槽、碳源槽和输出槽
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SteelFurnaceRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(
+            IRecipeLayoutBuilder builder,
+            SteelFurnaceRecipe recipe,
+            IFocusGroup focuses
+    ) {
+        // 炼钢原材料
         builder.addSlot(RecipeIngredientRole.INPUT, 1, 1)
                 .setStandardSlotBackground()
                 .addIngredients(recipe.ingredient());
 
+        // 读取整个碳源标签，并把显示数量改成配方需求数量
+        List<ItemStack> carbonSources = Arrays.stream(
+                Ingredient.of(ModTags.STEEL_CARBON_SOURCES).getItems()
+        ).map(stack -> {
+            ItemStack copy = stack.copy();
+            copy.setCount(recipe.coalCount());
+            return copy;
+        }).toList();
+
         builder.addSlot(RecipeIngredientRole.INPUT, 1, 37)
                 .setStandardSlotBackground()
-                .addItemStack(new ItemStack(Items.COAL, recipe.coalCount()));
+                .addItemStacks(carbonSources);
 
+        // 产物
         builder.addSlot(RecipeIngredientRole.OUTPUT, 61, 19)
                 .setOutputSlotBackground()
                 .addItemStack(recipe.result().copy());
